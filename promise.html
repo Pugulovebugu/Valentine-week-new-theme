@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Happy Promise Day - Ultimate</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+
+body{
+font-family:'Poppins',sans-serif;
+background:linear-gradient(160deg,#ffd166,#ffe29a,#fff3c4);
+}
+
+.bg-float{position:fixed;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:0}
+.bg-float span{position:absolute;bottom:-60px;font-size:26px;animation:floatUp linear infinite;opacity:.65}
+@keyframes floatUp{
+0%{transform:translateY(0) rotate(0deg);opacity:0}
+25%{opacity:.9}
+100%{transform:translateY(-120vh) rotate(360deg);opacity:0}
+}
+
+.page{
+position:absolute;width:100%;height:100%;display:flex;justify-content:center;align-items:center;padding:18px;
+transition:opacity .7s ease, filter .7s ease;z-index:2
+}
+.hide{opacity:0;pointer-events:none;filter:blur(8px)}
+
+.card{
+width:100%;max-width:420px;background:rgba(255,255,255,.35);
+backdrop-filter:blur(18px);border-radius:28px;padding:34px 20px;text-align:center;
+box-shadow:0 15px 45px rgba(0,0,0,.2);animation:cardIn .8s ease
+}
+@keyframes cardIn{from{transform:translateY(35px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+.script{font-family:'Great Vibes',cursive;color:#c49a00;text-shadow:0 6px 18px rgba(196,154,0,.35)}
+.title-big{font-size:clamp(2.2rem,6vw,3.2rem);margin-bottom:14px}
+.title-mid{font-size:clamp(1.9rem,5vw,2.5rem);margin-bottom:14px}
+
+p{font-size:1.05rem;color:#8a6d00;line-height:1.6;margin-top:10px}
+
+.btn{
+margin-top:22px;padding:15px 28px;border:none;border-radius:50px;
+background:linear-gradient(45deg,#ffca28,#c49a00);color:white;font-size:1rem;
+box-shadow:0 10px 30px rgba(0,0,0,.3);transition:.25s
+}
+.btn:active{transform:scale(.96)}
+
+.bottom-controls{
+position:fixed;bottom:14px;left:50%;transform:translateX(-50%);
+display:flex;gap:10px;z-index:5;
+}
+
+.ctrl-btn{
+height:38px;padding:0 14px;border:none;border-radius:12px;
+background:rgba(255,255,255,.25);
+backdrop-filter:blur(12px);
+color:#c49a00;font-size:13px;font-weight:500;
+box-shadow:0 4px 14px rgba(0,0,0,.18);
+}
+
+.gif-box{
+width:160px;height:160px;margin:12px auto;border-radius:18px;
+border:2px dashed rgba(196,154,0,.35);
+display:flex;align-items:center;justify-content:center;
+opacity:0;transform:translateY(20px);
+animation:gifFade 2s ease forwards .4s
+}
+@keyframes gifFade{to{opacity:1;transform:translateY(0)}}
+
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.gallery img{
+width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:14px;border:4px solid #fff;
+box-shadow:0 5px 16px rgba(0,0,0,.2);cursor:pointer;
+}
+
+.roses{display:flex;justify-content:center;gap:20px;margin-top:18px}
+.rose{font-size:58px;cursor:pointer}
+
+.letter{
+background:#fff8e1;padding:18px;border-radius:12px;border:2px solid #ffe082;
+font-family:cursive;font-size:1rem;line-height:1.5;text-align:left;margin-top:14px;
+white-space:pre-line;
+}
+
+.petal{position:fixed;font-size:22px;pointer-events:none;animation:petalFall linear forwards}
+@keyframes petalFall{
+0%{transform:translateY(-10vh) rotate(0deg);opacity:1}
+100%{transform:translateY(110vh) rotate(360deg);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-float" id="bg"></div>
+
+<div class="page" id="p1">
+<div class="card">
+<h1 class="script title-big">Happy Promise Day Bugu</h1>
+<div class="gif-box"><img src="promise.gif" style="width:100%;height:100%;object-fit:contain;border-radius:18px;"></div>
+<p>I promise to love you more every day 🤞</p>
+<button class="btn" onclick="go(1)">Open Memories</button>
+</div>
+</div>
+
+<div class="page hide" id="p2">
+<div class="card">
+<h2 class="script title-mid">Our Promises</h2>
+<div class="gallery">
+<img src="1.jpg"><img src="2.jpg"><img src="3.jpg">
+<img src="4.jpg"><img src="5.jpg"><img src="6.jpg">
+</div>
+<button class="btn" onclick="go(2)">Pick My Promise</button>
+</div>
+</div>
+
+<div class="page hide" id="p3">
+<div class="card">
+<h2 class="script title-mid">Pick The Promise 🤞</h2>
+<div class="roses">
+<div class="rose">🤞</div>
+<div class="rose">🤞</div>
+<div class="rose">🤞</div>
+</div>
+<p id="roseMsg" style="margin-top:14px;font-weight:600"></p>
+</div>
+</div>
+
+<div class="page hide" id="p4">
+<div class="card">
+<h2 class="script title-mid">From My Heart</h2>
+<div class="letter" id="typedLetter"></div>
+<button class="btn" onclick="go(4)">One Final Note</button>
+</div>
+</div>
+
+<div class="page hide" id="p5">
+<div class="card">
+<h2 class="script title-mid">Forever Promise</h2>
+<div class="gif-box"><img src="promise2.gif" style="width:100%;height:100%;object-fit:contain;border-radius:18px;"></div>
+<p>I promise forever 💛</p>
+<button class="btn">Happy Promise Day Once Again</button>
+</div>
+</div>
+
+<div class="bottom-controls">
+<button class="ctrl-btn" onclick="goHome()">Home</button>
+<button class="ctrl-btn" onclick="confirmRestart()">Restart</button>
+</div>
+
+<script>
+
+function go(n){
+document.getElementById('p'+n).classList.add('hide');
+document.getElementById('p'+(n+1)).classList.remove('hide');
+if(n+1===5) petalRain();
+}
+
+function goHome(){ window.location.href='index.html'; }
+
+function confirmRestart(){
+if(confirm('Restart love journey? 💕')) location.reload();
+}
+
+function wrong(){
+let texts=[
+'Aww cute! Try another 🌸',
+'This one is pretty, But not ours 🌸'
+];
+document.getElementById('roseMsg').innerText=texts[Math.floor(Math.random()*texts.length)];
+}
+
+function correct(){
+document.getElementById('roseMsg').innerText='Perfect choice 🤞 Opening love letter...';
+setTimeout(()=>{go(3); typeLetter();},1200);
+}
+
+let correctIndex=Math.floor(Math.random()*3);
+document.querySelectorAll('.rose').forEach((r,i)=>{
+r.onclick=()=> i===correctIndex ? correct() : wrong();
+});
+
+const bg=document.getElementById('bg');
+const icons=['🤞','💛','✨','💕'];
+setInterval(()=>{
+let span=document.createElement('span');
+span.innerHTML=icons[Math.floor(Math.random()*icons.length)];
+span.style.left=Math.random()*100+'vw';
+span.style.animationDuration=(7+Math.random()*6)+'s';
+bg.appendChild(span);
+setTimeout(()=>span.remove(),14000);
+},700);
+
+const text=`My Dearest Bugu,
+
+Just like a promise is meant to last forever, my love for you will never fade or change.
+
+On this special day, I want to tell you that you are my forever person and my eternal happiness.
+
+I promise to stand beside you in every storm and every sunshine of life.
+
+Always Yours.
+ ~Pugu ❤`;
+
+function typeLetter(){
+let el=document.getElementById('typedLetter');
+el.innerHTML='';
+let i=0;
+let t=setInterval(()=>{
+el.innerHTML+=text[i];
+i++;
+if(i>=text.length) clearInterval(t);
+},25);
+}
+
+function petalRain(){
+setInterval(()=>{
+let p=document.createElement('div');
+p.className='petal';
+p.innerHTML=['💛','✨','🌸'][Math.floor(Math.random()*3)];
+p.style.left=Math.random()*100+'vw';
+p.style.animationDuration=(4+Math.random()*3)+'s';
+document.body.appendChild(p);
+setTimeout(()=>p.remove(),7000);
+},300);
+}
+
+document.querySelectorAll('.gallery img').forEach(img=>{
+img.onclick=()=>{
+let overlay=document.createElement('div');
+overlay.style.position='fixed';
+overlay.style.top=0;
+overlay.style.left=0;
+overlay.style.width='100%';
+overlay.style.height='100%';
+overlay.style.background='rgba(0,0,0,.9)';
+overlay.style.display='flex';
+overlay.style.alignItems='center';
+overlay.style.justifyContent='center';
+overlay.style.zIndex=9999;
+
+let big=document.createElement('img');
+big.src=img.src;
+big.style.maxWidth='95%';
+big.style.maxHeight='95%';
+big.style.borderRadius='18px';
+
+overlay.appendChild(big);
+overlay.onclick=()=>overlay.remove();
+document.body.appendChild(overlay);
+};
+});
+
+</script>
+
+</body>
+</html>

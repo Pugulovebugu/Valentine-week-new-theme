@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Valentine Journey ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;}
+
+body{
+height:100vh;
+background:linear-gradient(160deg,#ffd6e0,#ff9fb5,#ffc7d8);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+}
+
+/* FLOAT HEARTS */
+.bg span{
+position:absolute;
+font-size:22px;
+opacity:.65;
+animation:float 12s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(110vh)}
+100%{transform:translateY(-10vh)}
+}
+
+/* MAIN CARD */
+.container{
+width:95%;
+max-width:420px;
+background:rgba(255,255,255,.35);
+backdrop-filter:blur(22px);
+border-radius:28px;
+padding:32px 22px;
+box-shadow:0 20px 55px rgba(255,120,150,.25);
+text-align:center;
+z-index:2;
+}
+
+/* TITLE */
+.title{
+font-family:'Great Vibes',cursive;
+font-size:2.9rem;
+color:#c2185b;
+margin-bottom:6px;
+text-shadow:0 0 18px rgba(255,120,160,.35);
+}
+
+.subtitle{
+font-size:.95rem;
+color:#6a1b3f;
+margin-bottom:22px;
+}
+
+/* DAY GRID */
+.days{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+}
+
+/* DAY CARD */
+.day{
+padding:14px;
+border-radius:16px;
+background:rgba(255,255,255,.55);
+font-weight:600;
+cursor:pointer;
+transition:.35s;
+box-shadow:0 6px 18px rgba(255,120,150,.18);
+position:relative;
+overflow:hidden;
+}
+
+.day:hover:not(.locked){
+transform:translateY(-3px) scale(1.03);
+background:rgba(255,255,255,.8);
+box-shadow:0 10px 25px rgba(255,120,150,.35);
+}
+
+/* LOCKED */
+.day.locked{
+opacity:.6;
+cursor:not-allowed;
+}
+
+/* TIMER */
+.timer{
+font-size:.72rem;
+margin-top:6px;
+font-weight:500;
+color:#7a2d55;
+}
+
+/* FOOTER */
+.footer{
+margin-top:20px;
+font-size:.8rem;
+color:#6a1b3f;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg" id="bg"></div>
+
+<div class="container">
+<div class="title">Our Love Journey</div>
+<div class="subtitle">Unlocking memories day by day ❤️</div>
+
+<div class="days">
+
+<div class="day" data-date="7" data-link="rose.html">🌹 Rose Day<div class="timer"></div></div>
+<div class="day" data-date="8" data-link="propose.html">💍 Propose Day<div class="timer"></div></div>
+<div class="day" data-date="9" data-link="chocolate.html">🍫 Chocolate Day<div class="timer"></div></div>
+<div class="day" data-date="10" data-link="teddy.html">🧸 Teddy Day<div class="timer"></div></div>
+<div class="day" data-date="11" data-link="promise.html">🤞 Promise Day<div class="timer"></div></div>
+<div class="day" data-date="12" data-link="hug.html">🤗 Hug Day<div class="timer"></div></div>
+<div class="day" data-date="13" data-link="kiss.html">💋 Kiss Day<div class="timer"></div></div>
+<div class="day" data-date="14" data-link="valentine.html">❤️ Valentine<div class="timer"></div></div>
+
+</div>
+
+<div class="footer">Made with Love 💕</div>
+</div>
+
+<script>
+
+/* FLOAT HEARTS */
+const bg=document.getElementById("bg");
+const hearts=["❤️","💕","💗","💖","🌸"];
+
+setInterval(()=>{
+let span=document.createElement("span");
+span.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
+span.style.left=Math.random()*100+"vw";
+span.style.animationDuration=(8+Math.random()*6)+"s";
+bg.appendChild(span);
+setTimeout(()=>span.remove(),14000);
+},700);
+
+/* DATE + TIMER SYSTEM */
+const today=new Date();
+const year=today.getFullYear();
+const month=today.getMonth(); // Feb = 1
+const days=document.querySelectorAll(".day");
+
+function updateTimers(){
+const now=new Date();
+
+days.forEach(day=>{
+const unlockDate=parseInt(day.dataset.date);
+const unlockTime=new Date(year,1,unlockDate,0,0,0); // Feb unlock
+
+const timerEl=day.querySelector(".timer");
+
+if(now >= unlockTime){
+day.classList.remove("locked");
+timerEl.innerHTML="Unlocked ❤️";
+
+day.onclick=()=>{
+window.location.href=day.dataset.link;
+};
+
+}else{
+day.classList.add("locked");
+
+const diff=unlockTime-now;
+
+const d=Math.floor(diff/(1000*60*60*24));
+const h=Math.floor((diff/(1000*60*60))%24);
+const m=Math.floor((diff/(1000*60))%60);
+const s=Math.floor((diff/1000)%60);
+
+timerEl.innerHTML=`Unlocks in ${d}d ${h}h ${m}m ${s}s`;
+}
+});
+
+}
+
+setInterval(updateTimers,1000);
+updateTimers();
+
+</script>
+
+</body>
+</html>
